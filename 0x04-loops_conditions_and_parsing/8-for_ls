@@ -2,5 +2,8 @@
 #displays all contents of the current directory
 for item in *
 do
+	if [[ $item != .* ]]
+	then
 	echo "$item"
+	fi
 done

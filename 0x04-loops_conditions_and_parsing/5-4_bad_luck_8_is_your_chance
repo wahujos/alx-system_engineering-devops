@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #while loop that moves from one to ten, displays differently for the 4th and 8th iteration.
-i=0
+i=1
 while [ $i -le 10  ]
 do
 	if [ $i -eq 4 ]

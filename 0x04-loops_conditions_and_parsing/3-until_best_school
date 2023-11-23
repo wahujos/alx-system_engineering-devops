@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+#until loop that displays a string ten times
 i=10
 until [ $i -eq 0 ]
 do

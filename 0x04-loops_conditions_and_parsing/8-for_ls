@@ -2,8 +2,9 @@
 #displays all contents of the current directory
 for item in *
 do
-	if [[ $item != .* ]]
+	if [[ -f "$item" ]]
 	then
-	echo "$item"
+		names=$(echo "$item" | cut -d'-' -f2-)
+		echo "$names"
 	fi
 done

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+#displays all contents of the current directory
+for item in *
+do
+	echo "$item"
+done

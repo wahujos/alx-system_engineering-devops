@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+#Ping five times
+if [ "$#" -eq 0 ]; then
+	echo "Usage: 5-is_the_host_on_the_network {IP_ADDRESS}"
+        exit 1
+fi
+ip_address="$1"
+if ! [[ "$ip_address" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ || "$ip_address" =~ ^[a-zA-Z0-9.-]+$ ]]; then
+	echo "Usage: 5-is_the_host_on_the_network {IP_ADDRESS}"
+	exit 1
+fi
+ping -c 5 "$ip_address"

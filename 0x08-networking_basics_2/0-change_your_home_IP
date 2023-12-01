@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#configures an ubuntu server
+if [ "$EUID" -ne 0 ]; then
+	exit 1
+fi
+cp /etc/hosts /etc/hosts.bak
+sed -i 's/127.0.0.1/127.0.0.2' /etc/hosts.bak
+cp -f /etc/hosts.bak /etc/hosts
+
+cat /etc/hosts

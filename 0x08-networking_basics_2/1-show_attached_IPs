@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#display all active ipv4
+ipv4_add=$(ifconfig | grep -oP 'inet \K[\d.]+')
+echo "$ipv4_add"

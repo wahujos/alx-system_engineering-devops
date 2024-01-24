@@ -4,6 +4,7 @@
 sudo apt-get update
 sudo apt-get install -y nginx
 echo "Hello world!" | sudo tee /var/www/html/index.html
-line="server_name _;\n\trewrite ^\/redirect_me https:\/\/www.youtube.com permanent;"
-sudo sed -i "s/server_name _;/$line/" /etc/nginx/sites-enabled/default
+sudo chown -R "$USER":"$USER" /var/www/html
+sudo chmod -R 755 /var/www
+sudo sed -i '/server_name _;/a \       location \/redirect_me {\n            rewrite ^\/redirect_me https:\/\/www.youtube.com\/watch?v=QH2-TGUlwu4 permanent;\n        }' /etc/nginx/sites-available/default
 sudo service nginx restart

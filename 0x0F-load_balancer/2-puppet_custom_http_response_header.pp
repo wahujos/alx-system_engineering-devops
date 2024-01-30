@@ -16,6 +16,6 @@ file_line {'http_header':
 }
 #Restart nginx
 exec {'restart_nginx':
-  command     => '/usr/sbin/service nginx resart',
+  command     => '/usr/sbin/service nginx restart',
   refreshonly => true,
 }

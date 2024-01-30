@@ -1,24 +1,21 @@
-# creating a custom HTTP header response, but with Puppet
-#Ensure package is installed
-package {'nginx':
-  ensure => installed,
+#  automate the task of creating a custom HTTP header response, but with Puppet.
+#update apt package
+exec {'update_apt_store':
+  command => '/usr/bin/apt-get update',
 }
-#Add the header to the nginx configuration using inline template
-file {'/etc/nginx/sites-enabled/default':
-  ensure  => file,
-  content => @(EOT),
-server {
-  listen 80 default_server;
-  listen [::]:80 default_server;
-
-  server_name _;
-  add_header X-Served-By <%= @hostname %>;
+#Install nginx package
+packege {'nginx':
+  ensure  => 'present',
+  require => Exce['update_apt_store'],
 }
-EOT
-  notify  => Service['nginx'],
+# Add a line to Nginx configuration
+file_line {'http_header':
+  path  => '/etc/nginx/nginx.conf',
+  line  => "http {\n\tadd_header X-Served-By \"${hostname}\";",
+  match => Exec['restart_nginx'],
 }
-#Ensure the nginx service is running
-service {'nginx':
-  ensure => running,
-  enable => true,
+#Restart nginx
+exec {'restart_nginx':
+  commad      => '/usr/sbin/service nginx resart',
+  refreshonly => true,
 }

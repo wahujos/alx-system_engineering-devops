@@ -10,12 +10,13 @@ package {'nginx':
 }
 # Add a line to Nginx configuration
 file_line {'http_header':
-  path  => '/etc/nginx/nginx.conf',
-  line  => "http {\n\tadd_header X-Served-By \"${hostname}\";",
-  match => Exec['restart_nginx'],
+  path    => '/etc/nginx/nginx.conf',
+  line    => "http {\n\tadd_header X-Served-By \"${hostname}\";",
+  match   => 'http {'
+  require => Package ['nginx'],
 }
 #Restart nginx
 exec {'restart_nginx':
-  command     => '/usr/sbin/service nginx restart',
-  refreshonly => true,
+  command => '/usr/sbin/service nginx restart',
+  require => File_line ['http_header']
 }

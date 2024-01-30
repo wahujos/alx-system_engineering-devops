@@ -4,9 +4,9 @@ exec {'update_apt_store':
   command => '/usr/bin/apt-get update',
 }
 #Install nginx package
-packege {'nginx':
+package {'nginx':
   ensure  => 'present',
-  require => Exce['update_apt_store'],
+  require => Exec['update_apt_store'],
 }
 # Add a line to Nginx configuration
 file_line {'http_header':
@@ -16,6 +16,6 @@ file_line {'http_header':
 }
 #Restart nginx
 exec {'restart_nginx':
-  commad      => '/usr/sbin/service nginx resart',
+  command     => '/usr/sbin/service nginx resart',
   refreshonly => true,
 }

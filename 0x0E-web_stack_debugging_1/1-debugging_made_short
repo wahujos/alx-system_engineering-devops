@@ -2,4 +2,4 @@
 # debugging
 ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 sudo service start
-pkill -9 -f 'nginx'
+kill "$(pgrep 'nginx' | head -1)"

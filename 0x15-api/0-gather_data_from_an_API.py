@@ -1,11 +1,15 @@
 #!/usr/bin/python3
-""" handling imports """
+"""
+handling imports, import the necessary  modules
+"""
 
 import requests
 import sys
 
 if __name__ == "__main__":
-    """ module documentations"""
+    """
+    module documentations, this allows this module to run fro specific places
+    """
     employee_id = sys.argv[1]
     url = "https://jsonplaceholder.typicode.com/"
     res_user = requests.get(url + f'users/{employee_id}')
@@ -17,8 +21,8 @@ if __name__ == "__main__":
         completed_tasks = [todo for todo in todos if todo['completed']]
         num_completed_tasks = len(completed_tasks)
         total_tasks = len(todos)
-        print(f"Employee {employee_name} is done with tasks
-              ({num_completed_tasks}/{total_tasks}): ")
+        print(f"Employee {employee_name} is done with tasks"
+              f"({num_completed_tasks}/{total_tasks}): ")
         for task in completed_tasks:
             print(f"\t {task['title']}")
     else:

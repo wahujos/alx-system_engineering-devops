@@ -17,7 +17,7 @@ if __name__ == "__main__":
     if res_user.status_code == 200 and res_todos.status_code == 200:
         user = res_user.json()
         todos = res_todos.json()
-        employee_name = user.get('name')
+        employee_name = res_user.json().get('name')
         completed_tasks = [todo for todo in todos if todo['completed']]
         num_completed_tasks = len(completed_tasks)
         total_tasks = len(todos)

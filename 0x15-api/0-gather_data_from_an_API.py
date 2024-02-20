@@ -1,0 +1,24 @@
+#!/usr/bin/python3
+""" handling imports """
+
+import requests
+import sys
+
+if __name__ == "__main__":
+    employee_id = sys.argv[1]
+    url = "https://jsonplaceholder.typicode.com/"
+    res_user = requests.get(url + f'users/{employee_id}')
+    res_todos = requests.get(url + f'users/{employee_id}/todos')
+    if res_user.status_code == 200 and res_todos.status_code == 200:
+        user = res_user.json()
+        todos = res_todos.json()
+        employee_name = user.get('name')
+        completed_tasks = [todo for todo in todos if todo['completed']]
+        num_completed_tasks = len(completed_tasks)
+        total_tasks = len(todos)
+        print(f"Employee {employee_name} is done with tasks
+              ({num_completed_tasks}/{total_tasks}): ")
+        for task in completed_tasks:
+            print(f"\t {task['title']}")
+    else:
+        print("Error occurred in fetching information")

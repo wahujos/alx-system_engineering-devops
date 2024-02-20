@@ -15,10 +15,10 @@ if __name__ == "__main__":
     url = "https://jsonplaceholder.typicode.com/"
     res_user = requests.get(url + f"/users/{user_id}").json()
     res_task = requests.get(url + f"/users/{user_id}/todos").json()
-    user_name = res_user.get('name')
+    user_name = res_user.get('username')
     csv_file_path = f"{user_id}.csv"
     with open(csv_file_path, mode='w', newline='') as csv_file:
-        csv_writer = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
+        csv_writer = csv.writer(csv_file, quoting=csv.QUOTE_ALL, quotechar='"')
         for task in res_task:
             task_completed_status = "True" if task['completed'] else "False"
             task_title = task['title']

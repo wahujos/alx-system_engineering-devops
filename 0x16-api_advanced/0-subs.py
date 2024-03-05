@@ -23,5 +23,5 @@ def number_of_subscribers(subreddit):
 
 
 if __name__ == "__main__":
-    """Documentation to fulfill all requirement"""
+    """Documentation to fulfill all requirements"""
     number_of_subscribers(sys.argv[1])

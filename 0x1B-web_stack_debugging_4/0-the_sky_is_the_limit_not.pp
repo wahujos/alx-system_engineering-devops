@@ -1,13 +1,17 @@
-# We are using the apache benchmark to test our server during pressure
-# We are seeking to change the ulimit since this determines the number
-# of files that can be open at a particular time
-
-exec {
-command => '/bin/sed -i "s/15/10240/" /etc/default/nginx',
-path    => '/usr/local/bin/:/bin/'
+# Backup the original nginx configuration file
+file { '/etc/default/nginx_backup':
+  ensure => 'file',
+  source => '/etc/default/nginx',
 }
-# restart the nginx server
-exec {
-command => '/etc/init.d/nginx restart',
-path    => '/etc/init.d/',
+# Update the ulimit in the nginx configuration file
+exec { 'update-ulimit':
+  command => '/bin/sed -i "s/15/4096/" /etc/default/nginx',
+  unless  => '/bin/grep -q "ulimit -n 4096" /etc/default/nginx',
+  notify  => Exec['restart-nginx'],
+}
+# Restart nginx only if the configuration is changed
+exec { 'restart-nginx':
+  command     => '/etc/init.d/nginx restart',
+  refreshonly => true,
+  subscribe   => Exec['update-ulimit'],
 }
